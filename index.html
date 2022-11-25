@@ -9,8 +9,22 @@
 	<body>
 		<h1>Testando Socket.io</h1>
 		<script src="/socket.io/socket.io.js"></script>
+		<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+		<div id="msgs"></div>
 		<script>
 			const socket = io();
+			socket.on("connect", function () {
+				$("#msgs").append("connected with id: " + socket.id + "<br>");
+				socket.emit("msg", "I am connected by the: " + socket.id);
+			});
+			socket.on("msg", function (msg) {
+				$("#msgs").append(msg + "<br>");
+			});
+			$(function () {
+				$("input").keyDown(function (key) {
+					console.log(key.keyCode);
+				});
+			});
 		</script>
 	</body>
 </html>

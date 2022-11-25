@@ -14,7 +14,11 @@ app.get("/", (req, res) => {
 
 //quando um novo user conectar ao server ele retorna o id da instancia do socket do user
 io.on("connection", (socket) => {
-	console.log("New connection", socket.id);
+	console.log("New connection", socket.id + "<br>");
+	socket.on("msg", (msg) => {
+		console.log(msg);
+		socket.broadcast.emit("msg", socket.id + " Connected");
+	});
 });
 
 //ao funcionar retorna na porta http://localhost:3000 retorna o listen
